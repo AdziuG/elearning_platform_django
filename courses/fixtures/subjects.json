@@ -1,0 +1,26 @@
+[
+{
+  "model": "courses.subject",
+  "pk": 1,
+  "fields": {
+    "title": "Informatyka",
+    "slug": "informatyka"
+  }
+},
+{
+  "model": "courses.subject",
+  "pk": 2,
+  "fields": {
+    "title": "Programowanie obiektowe",
+    "slug": "programowanie-obiektowe"
+  }
+},
+{
+  "model": "courses.subject",
+  "pk": 3,
+  "fields": {
+    "title": "Matematyka dyskretna",
+    "slug": "matematyka-dyskretna"
+  }
+}
+]
