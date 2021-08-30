@@ -1,47 +1,30 @@
 {% extends "base.html" %}
 {% block title %}
-{% if subject %}
-    Kursy z dziedziny: {{ subject.title }}
-{% else %}
-    Wszystkie kursy
-{% endif %}
+{{ object.title }}
 {% endblock %}
 {% block content %}
+{% with subject=course.subject %}
 <h1>
-    {% if subject %}
-        Kursy z dziedziny: {{ subject.title }}
-    {% else %}
-        Wszystkie kursy
-    {% endif %}
+    {{ object.title }}
 </h1>
-<div class="contents">
-    <h3>Tematy</h3>
-    <ul id="modules">
-        <li {% if not subject %}class="selected" {% endif %}>
-            <a href="{% url "course_list" %}">Wszystkie</a>
-        </li>
-        {% for s in subjects %}
-        <li {% if subject == s %}class="selected" {% endif %}>
-            <a href="{% url "course_list_subject" s.slug %}">
-                {{ s.title }}
-                <br><span>{{ s.total_courses }} kursy{{ s.total_courses|pluralize:"y" }}</span>
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
-</div>
 <div class="module">
-    {% for course in courses %}
-    {% with subject=course.subject %}
-    <h3><a href="{% url "course_detail" course.slug %}">{{ course.title }}
-            </a></h3>
+    <h2>Ogólny opis kursu</h2>
     <p>
         <a href="{% url "course_list_subject" subject.slug %}">
-            {{ subject }}</a>.
-        {{ course.total_modules }} moduł{{ course.total_modules|pluralize:"y" }}.
-        Instruktor: {{ course.owner.get_full_name }}
+            subject.title }}</a>, {{ course.modules.count }} moduł{{course.modules.count|pluralize:"y" }},
+            instruktor: {{ course.owner.get_full_name }}
     </p>
-    {% endwith %}
-    {% endfor %}
+    {% if request.user.is_authenticated %}
+        <form action="{% url "student_enroll_course" %}" method="post">
+            {{ enroll_form }}
+            {% csrf_token %}
+            <input type="submit" class="button" value="Zapisz się">
+        </form>
+        {% else %}
+        <a href="{% url "student_registration" %}" class="button">
+            Zarejestruj się, aby zostać uczestnikiem kursu
+        </a>
+    {% endif %}
 </div>
+{% endwith %}
 {% endblock %}

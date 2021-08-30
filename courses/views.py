@@ -1,17 +1,16 @@
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.views.generic.base import TemplateResponseMixin, View
 from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.apps import apps
 from django.forms.models import modelform_factory
 from django.db.models import Count
-from .models import Subject
-from .models import Course, Module, Content
+from .models import Subject, Course, Module, Content
 from .forms import ModuleFormSet
 from braces.views import CsrfExemptMixin, JSONResponseMixin
+from students.forms import CourseEnrollForm
 
 
 class CourseListView(TemplateResponseMixin, View):
@@ -30,6 +29,12 @@ class CourseListView(TemplateResponseMixin, View):
 class CourseDetailView(DetailView):
     model = Course
     template_name = 'courses/course/detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['enroll_form'] = CourseEnrollForm(
+            initial={'course': self.object})
+        return context
 
 class OwnerMixin:
     """
