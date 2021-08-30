@@ -17,9 +17,6 @@ class Subject(models.Model):
 
 
 class Course(models.Model):
-    """
-
-    """
     owner = models.ForeignKey(User,
                               related_name='courses_created',
                               on_delete=models.CASCADE)  # The instructor who created this course.
@@ -30,6 +27,7 @@ class Course(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     overview = models.TextField()
     created = models.DateTimeField(auto_now_add=True)  # It will be automatically set by Django.
+    students = models.ManyToManyField(User, related_name='courses_joined', blank=True)
 
     class Meta:
         ordering = ('-created',)

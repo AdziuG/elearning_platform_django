@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 {% block title %}
 {% if subject %}
-Kursy z dziedziny: {{ subject.title }}
+    Kursy z dziedziny: {{ subject.title }}
 {% else %}
-Wszystkie kursy
+    Wszystkie kursy
 {% endif %}
 {% endblock %}
 {% block content %}
 <h1>
     {% if subject %}
-    Kursy z dziedziny: {{ subject.title }}
+        Kursy z dziedziny: {{ subject.title }}
     {% else %}
-    Wszystkie kursy
+        Wszystkie kursy
     {% endif %}
 </h1>
 <div class="contents">
@@ -34,10 +34,10 @@ Wszystkie kursy
     {% for course in courses %}
     {% with subject=course.subject %}
     <h3><a href="{% url "course_detail" course.slug %}">{{ course.title }}
-            </a></h3>
+            </a></h3>
     <p>
         <a href="{% url "course_list_subject" subject.slug %}">
-            {{ subject }}</a>.
+            {{ subject }}</a>.
         {{ course.total_modules }} moduł{{ course.total_modules|pluralize:"y" }}.
         Instruktor: {{ course.owner.get_full_name }}
     </p>
