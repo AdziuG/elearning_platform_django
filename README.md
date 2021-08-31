@@ -6,6 +6,7 @@ The application was created while learning django framework.
 This is e-learning platform with your own content management system (CMS). 
 
 What I've learnt:
+
   • Create fixtures for your models
   • Use model inheritance
   • Create custom model fields
