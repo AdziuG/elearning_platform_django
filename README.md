@@ -18,8 +18,8 @@ What I've learnt:
   • Build formsets
   
   # TODO
-    • Fixes bugs
-    
-    • Build RestApi
-    
-    • Create chat channel using Django Channels
+  • Fixes bugs
+
+  • Build RestApi
+
+  • Create chat channel using Django Channels
